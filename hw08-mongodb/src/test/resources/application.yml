@@ -1,0 +1,17 @@
+spring:
+  data:
+    mongodb:
+      port: 0
+      database: test
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 7.0.5
+
+mongock:
+  enabled: false
+
+logging:
+  level:
+    root: ERROR
