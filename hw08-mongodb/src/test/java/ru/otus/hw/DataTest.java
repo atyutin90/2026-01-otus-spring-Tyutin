@@ -10,11 +10,13 @@ import java.util.stream.IntStream;
 
 public final class DataTest {
 
-    public static final long BOOK_ID = 1L;
+    public static final String INVALID_ID = "-1";
 
-    public static final long COMMENT_ID = 2L;
+    public static final String BOOK_ID = "1";
 
-    public static final long DELETE_COMMENT_ID = 3L;
+    public static final String COMMENT_ID = "2";
+
+    public static final String DELETE_COMMENT_ID = "3";
 
     public static final String NEW_COMMENT_TEXT = "Comment_NEW";
 
@@ -25,20 +27,22 @@ public final class DataTest {
     public static final String MODIFY_BOOK_TITLE = "Comment_UNPDATE";
 
     public static List<Author> getDbAuthors() {
-        return IntStream.range(1, 4).boxed()
-                .map(id -> new Author(id, "Author_" + id))
+        return IntStream.range(1, 4)
+                .boxed()
+                .map(id -> new Author(id.toString(), "Author_" + id))
                 .toList();
     }
 
     public static List<Genre> getDbGenres() {
-        return IntStream.range(1, 7).boxed()
-                .map(id -> new Genre(id, "Genre_" + id))
+        return  IntStream.range(1, 7)
+                .boxed()
+                .map(id -> new Genre(id.toString(), "Genre_" + id))
                 .toList();
     }
 
     public static List<Book> getDbBooks(List<Author> dbAuthors, List<Genre> dbGenres) {
         return IntStream.range(1, 4).boxed()
-                .map(id -> new Book(id,
+                .map(id -> new Book(id.toString(),
                         "BookTitle_" + id,
                         dbAuthors.get(id - 1),
                         dbGenres.subList((id - 1) * 2, (id - 1) * 2 + 2)
@@ -54,7 +58,7 @@ public final class DataTest {
 
     public static List<Comment> getDbComments(List<Book> books) {
         return IntStream.range(1, 4).boxed()
-                .map(id -> new Comment(id, "Comment_" + id, books.stream().filter(it -> it.getId() == BOOK_ID).findFirst().orElse(null)))
+                .map(id -> new Comment(id.toString(), "Comment_" + id, books.stream().filter(it -> BOOK_ID.equals(it.getId())).findFirst().orElse(null)))
                 .toList();
     }
 }
