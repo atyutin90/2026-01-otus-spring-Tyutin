@@ -1,0 +1,30 @@
+### Метод получения списка комментариев по идентификатору книги
+GET {{host}}/api/books/1/comments
+Content-Type: application/json
+
+### Метод получения комментария по id
+GET {{host}}/api/comments/3
+Content-Type: application/json
+
+### Метод удаление комментария по id
+DELETE {{host}}/api/comments/1
+Content-Type: application/json
+
+### Метод создает комментария для книги
+POST {{host}}/api/books/1/comments
+Content-Type: application/json
+
+{
+  "bookId": 1,
+  "text": "new-comment"
+}
+
+### Метод редактирование комментария
+PATCH {{host}}/api/comments/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "bookId": 1,
+  "text": "new-text-comment"
+}

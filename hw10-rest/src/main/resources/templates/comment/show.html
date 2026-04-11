@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{comment}">Comment</title>
+    <script type="module" th:src="@{/js/comment/show.js}"></script>
+
+    <div th:replace="~{fragments/library}"></div>
+
+    <div id="bookId" th:data-id="${bookId}"></div>
+    <div id="commentId" th:data-id="${id}"></div>
+
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!--modal-->
+<div th:replace="~{fragments/delete-modal}"></div>
+
+<div class="container flex-grow-1 d-flex align-items-center justify-content-center">
+
+    <div class="card shadow-sm p-4" style="width: 600px;">
+
+        <h4 class="text-center mb-4" th:text="#{comment}">Comment</h4>
+
+        <!--loader-->
+        <div class="d-flex justify-content-center">
+            <div id="loader" class="spinner-border text-secondary text-center" role="status">
+            </div>
+        </div>
+
+        <form id="comment-form" style="display:none;">
+
+            <div class="mb-3">
+                <label for="text" class="form-label" th:text="#{comment.text}">Text</label>
+                <textarea rows="5" cols="100"
+                          id="text"
+                          class="form-control"
+                          th:placeholder="#{comment.text.placeholder}"></textarea>
+                <div id="error-text" class="text-danger small">
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-2 mt-3">
+
+                <!-- book -->
+                <a th:href="@{/books/__${bookId}__}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-book"></i>
+                </a>
+
+                <!-- save -->
+                <button type="button"
+                        id="saveBtn"
+                        onclick="save()"
+                        class="btn btn-outline-success btn-sm">
+                    <i class="bi bi-check-lg"></i>
+                </button>
+
+                <!-- delete -->
+                <button type="button"
+                        id="deleteBtn"
+                        onclick="confirmDelete()"
+                        class="btn btn-outline-danger btn-sm"
+                        style="display:none;">
+                    <i class="bi bi-trash"></i>
+                </button>
+
+            </div>
+        </form>
+
+        <!-- error -->
+        <div id="error"
+             class="text-danger text-center"
+             style="display:none;">Error message</div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
