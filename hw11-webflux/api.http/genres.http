@@ -1,0 +1,28 @@
+### Метод получения списка жанра
+GET {{host}}/api/genres
+Content-Type: application/json
+
+### Метод получения жанра по id
+GET {{host}}/api/genres/3
+Content-Type: application/json
+
+### Метод удаление жанра по id
+DELETE {{host}}/api/genres/1
+Content-Type: application/json
+
+### Метод создает жанра
+POST {{host}}/api/genres
+Content-Type: application/json
+
+{
+  "name": "test-genre"
+}
+
+### Метод редактирование жанра
+PATCH {{host}}/api/genres/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "new-name-genre"
+}
