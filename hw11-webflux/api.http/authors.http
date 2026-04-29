@@ -1,0 +1,28 @@
+### Метод получения списка авторов
+GET {{host}}/api/authors
+Content-Type: application/json
+
+### Метод получения автора по id
+GET {{host}}/api/authors/1
+Content-Type: application/json
+
+### Метод удаление автора по id
+DELETE {{host}}/api/authors/1
+Content-Type: application/json
+
+### Метод создает автора
+POST {{host}}/api/authors
+Content-Type: application/json
+
+{
+  "fullName": "test-author"
+}
+
+### Метод редактирование автора
+PATCH {{host}}/api/authors/1
+Content-Type: application/json
+
+{
+  "id": 2,
+  "fullName": "new-name-author"
+}

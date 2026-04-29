@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{book}">Book</title>
+    <script type="module" th:src="@{/js/book/show.js}"></script>
+
+    <div id="bookId" th:data-id="${id}"></div>
+
+    <div th:replace="~{fragments/library}"></div>
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container flex-grow-1 d-flex align-items-center justify-content-center">
+
+    <div class="card shadow-sm p-4" style="width: 600px;">
+
+        <h4 class="text-center mb-4" th:text="#{book}">Book</h4>
+
+        <!--loader-->
+        <div class="d-flex justify-content-center">
+            <div id="loader" class="spinner-border text-secondary text-center" role="status">
+            </div>
+        </div>
+
+        <form id="book-form" style="display:none;">
+            <div class="mb-3">
+                <label for="title"
+                       class="form-label"
+                       th:text="#{book.title}"/>
+                <input id="title" type="text"
+                       class="form-control"
+                       th:placeholder="#{book.title.placeholder}"
+                       disabled/>
+                <div id="error-title"
+                     class="text-danger small"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="author"
+                       class="col-form-label"
+                       th:text="#{book.author}"/>
+                <select id="author"
+                        class="form-control"
+                        disabled>
+                    <option id="default-author-option"
+                            th:value="${null}"
+                            th:text="#{choose}">Select Value</option>
+                </select>
+                <div id="error-author"
+                     class="text-danger small"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="genres"
+                       class="col-form-label"
+                       th:text="#{book.genres}"/>
+                <select id="genres"
+                        class="form-control"
+                        size="10"
+                        multiple
+                        disabled></select>
+                <div id="error-genres"
+                     class="text-danger small"></div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-2 mt-3">
+
+                <!-- list -->
+                <a href="/books"
+                   class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-list"></i>
+                </a>
+
+                <!-- edit -->
+                <button type="button"
+                        id="edit-btn"
+                        onclick="edit()"
+                        class="btn btn-outline-primary btn-sm"
+                        style="display:none;">
+                    <i class="bi bi-pencil"></i>
+                </button>
+
+                <!-- save -->
+                <button type="button"
+                        id="save-btn"
+                        onclick="save()"
+                        class="btn btn-outline-success btn-sm"
+                        style="display:none;">
+                    <i class="bi bi-check-lg"></i>
+                </button>
+
+                <!-- add comment -->
+                <a id="add-comment-btn"
+                   class="btn btn-outline-success btn-sm">
+                    <i class="bi bi-chat-dots"></i>
+                </a>
+
+            </div>
+
+        </form>
+
+        <!-- error -->
+        <div id="error"
+             class="text-danger text-center"
+             style="display:none;">
+            Error message
+        </div>
+
+        <!-- Comments -->
+        <div id="comments-block" style="display:none;">
+
+            <h6 class="mb-3" th:text="#{comments}">
+                <i class="bi bi-chat-left-text"></i>
+            </h6>
+
+            <!-- Empty -->
+            <div id="no-comments"
+                 class="text-muted text-center"
+                 th:text="#{book.no-comments}">No comments yet</div>
+
+            <!-- List comments -->
+           <div id="comments"
+                class="d-grid gap-2">
+           </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
