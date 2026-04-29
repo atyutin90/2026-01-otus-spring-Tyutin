@@ -1,0 +1,56 @@
+<header th:fragment="header"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+
+            <div class="navbar-nav">
+                <a class="navbar-brand" href="/">
+                    <i class="bi bi-house-door-fill text-warning"></i>
+                </a>
+                <a class="nav-link" th:text="#{books}" href="/books">
+                    <i class="bi bi-book"></i>Books
+                </a>
+                <a class="nav-link" th:text="#{authors}" href="/authors">
+                    <i class="bi bi-person"></i> Authors
+                </a>
+                <a class="nav-link" th:text="#{genres}" href="/genres">
+                    <i class="bi bi-tags" th:text=""></i> Genres
+                </a>
+            </div>
+
+            <div class="d-flex align-items-center ms-auto gap-3">
+
+                <!-- Пользователь -->
+                <span class="text-white" sec:authentication="name"></span>
+
+                <!-- Локаль -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-light dropdown-toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            th:text="${#locale.language == 'ru' ? '🇷🇺' : (#locale.language == 'ch' ? '🇨🇳' : '🇬🇧')}">
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" th:href="@{/(lang=en)}">🇬🇧 EN</a></li>
+                        <li><a class="dropdown-item" th:href="@{/(lang=ru)}">🇷🇺 RU</a></li>
+                        <li><a class="dropdown-item" th:href="@{/(lang=ch)}">🇨🇳 ZH</a></li>
+                    </ul>
+                </div>
+
+                <!-- Logout -->
+                <form th:action="@{/logout}" method="post" class="m-0">
+                    <button type="submit" class="btn btn-danger btn-sm"
+                            th:text="#{sign-out}">
+                        Sign Out
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </nav>
+</header>

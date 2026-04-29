@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/library}"></div>
+<body>
+
+<div class="container min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="w-100" style="max-width: 500px;">
+
+        <!-- Логотип -->
+        <div class="text-center mb-4">
+            <i class="bi bi-book display-4"></i>
+        </div>
+
+        <!-- Форма входа -->
+        <form th:action="@{/register}" method="post" th:object="${user}" class="mt-4 needs-validation">
+
+            <!-- Ошибки -->
+            <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger alert-dismissible fade show text-center"
+                 role="alert">
+                <ul class="mb-3">
+                    <span th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </ul>
+            </div>
+
+            <div class="mb-3 text-center">
+                <label for="username" class="form-label" th:text="#{user.username}">Username</label>
+                <input type="text" class="form-control" id="username" name="username" th:field="*{username}"
+                       th:placeholder="#{user.username.placeholder}" th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : ''">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+            </div>
+
+            <div class="mb-3 text-center">
+                <label for="password" class="form-label" th:text="#{user.password}">Password</label>
+                <input type="password" class="form-control" id="password" name="password" th:field="*{password}"
+                       th:placeholder="#{user.password.placeholder}" th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success" th:text="#{register}">Register</button>
+
+                <a class="btn btn-secondary" th:href="@{/auth/login}" th:text="#{sign-in}">Login</a>
+            </div>
+
+            <!-- Выбор локали -->
+            <div class="d-flex justify-content-center gap-3 mt-3">
+
+                <a th:href="@{/login(lang=en)}"
+                   class="text-decoration-none fs-4"
+                   th:classappend="${#locale.language == 'en'} ? 'opacity-100 border-bottom border-2' : 'opacity-50'">
+                    🇬🇧
+                </a>
+
+                <a th:href="@{/login(lang=ru)}"
+                   class="text-decoration-none fs-4"
+                   th:classappend="${#locale.language == 'ru'} ? 'opacity-100 border-bottom border-2' : 'opacity-50'">
+                    🇷🇺
+                </a>
+
+                <a th:href="@{/login(lang=ch)}"
+                   class="text-decoration-none fs-4"
+                   th:classappend="${#locale.language == 'ch'} ? 'opacity-100 border-bottom border-2' : 'opacity-50'">
+                    🇨🇳
+                </a>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+</body>
+
+</html>
