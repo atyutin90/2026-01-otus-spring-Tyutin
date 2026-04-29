@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{genre}">Genre</title>
+    <script type="module" th:src="@{/js/genre/show.js}"></script>
+
+    <div id="genreId" th:data-id="${id}"></div>
+
+    <div th:replace="~{fragments/library}"></div>
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container flex-grow-1 d-flex align-items-center justify-content-center">
+
+    <div class="card shadow-sm p-4" style="width: 600px;">
+
+        <h4 class="text-center mb-4" th:text="#{genre}">Genre</h4>
+
+        <!--loader-->
+        <div class="d-flex justify-content-center">
+            <div id="loader" class="spinner-border text-secondary text-center" role="status">
+            </div>
+        </div>
+
+        <!--form-->
+        <form id="genre-form" style="display:none;">
+
+            <div class="mb-3">
+                <label for="name" class="form-label" th:text="#{genre.name}">Name</label>
+                <input type="text" id="name"
+                       value=""
+                       class="form-control"
+                       th:placeholder="#{genre.name.placeholder}"
+                       disabled/>
+
+                <div id="error-name" class="text-danger small">
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-2 mt-3">
+                <!-- list -->
+                <a href="/genres" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-list"></i>
+                </a>
+                <!-- edit -->
+                <button type="button"
+                        id="edit-btn"
+                        onclick="edit()"
+                        class="btn btn-outline-primary btn-sm"
+                        style="display:none;">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <!-- save -->
+                <button type="button"
+                        id="save-btn"
+                        onclick="save()"
+                        class="btn btn-outline-success btn-sm"
+                        style="display:none;">
+                    <i class="bi bi-check-lg"></i>
+                </button>
+            </div>
+        </form>
+
+        <!-- error -->
+        <div id="error" class="text-danger text-center" style="display:none;">
+            Error message
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+### Метод получения списка книг
+GET {{host}}/api/books
+Content-Type: application/json
+
+### Метод получения книги по id
+GET {{host}}/api/books/3
+Content-Type: application/json
+
+### Метод удаление книги по id
+DELETE {{host}}/api/books/1
+Content-Type: application/json
+
+### Метод создает книги
+POST {{host}}/api/books
+Content-Type: application/json
+
+{
+  "title": "test-book",
+  "authorId": 1,
+  "genreIds": [1]
+}
+
+### Метод редактирование книги
+PATCH {{host}}/api/books/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "title": "new-title",
+  "authorId": 1,
+  "genreIds": [1,2]
+}
