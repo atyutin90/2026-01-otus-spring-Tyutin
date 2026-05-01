@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{genres}">Genres</title>
+    <div th:replace="~{fragments/library}"></div>
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container flex-grow-1 py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 th:text="#{genres}">Genres</h2>
+
+        <a href="/genres/new" class="btn btn-success">
+            <i class="bi bi-plus-lg"></i>
+        </a>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Сообщение об ошибке -->
+        <div th:if="${errorMessage != null}" class="alert alert-danger alert-dismissible fade show text-center"
+             role="alert">
+            <ul class="mb-3">
+                <span th:text="${errorMessage}"></span>
+            </ul>
+        </div>
+
+        <div class="col-md-4" th:each="genre : ${genres}">
+            <div class="card h-100 shadow-sm text-center">
+
+                <div class="card-body">
+                    <i class="bi bi-tags display-4"></i>
+                    <h5 class="mt-3" th:text="${genre.name()}">Genre Name</h5>
+                </div>
+
+                <div class="card-footer bg-white border-0 d-flex justify-content-center gap-2">
+
+                    <!-- show -->
+                    <a th:href="@{/genres/__${genre.id}__}"
+                       class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-eye"></i>
+                    </a>
+
+                    <!-- delete -->
+                    <button type="button"
+                            class="btn btn-outline-danger btn-sm"
+                            data-bs-toggle="modal"
+                            th:attr="data-bs-target='#deleteModal-' + ${genre.id}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- delete modal -->
+            <div class="modal fade"
+                 th:id="'deleteModal-' + ${genre.id}"
+                 tabindex="-1"
+                 aria-hidden="true">
+
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <div class="modal-body text-center">
+                            <i class="bi bi-exclamation-triangle text-danger display-6"></i>
+                            <p class="mt-3" th:text="#{modal-delete-message(${genre.name()})}">
+                                Are you sure you want to delete record?
+                            </p>
+                        </div>
+
+                        <div class="modal-footer justify-content-center gap-2">
+
+                            <!-- Cancel -->
+                            <button type="button"
+                                    class="btn btn-outline-secondary btn-sm"
+                                    data-bs-dismiss="modal">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <!-- Delete -->
+                            <form th:action="@{/genres/__${genre.id}__}" th:method="delete">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
