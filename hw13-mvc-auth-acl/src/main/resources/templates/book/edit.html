@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{book}">Book</title>
+    <div th:replace="~{fragments/library}"></div>
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container flex-grow-1 d-flex align-items-center justify-content-center">
+
+    <div class="card shadow-sm p-4" style="width: 600px;">
+
+        <h4 class="text-center mb-4" th:text="#{book}">Book</h4>
+
+        <form th:action="@{/books}" th:object="${book}" method="post">
+
+            <!-- Сообщение об ошибке -->
+            <div th:if="${errorMessage != null}" class="alert alert-danger alert-dismissible fade show text-center"
+                 role="alert">
+                <ul class="mb-3">
+                    <span th:text="${errorMessage}"></span>
+                </ul>
+            </div>
+
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="mb-3">
+                <label for="title" class="form-label" th:text="#{book.title}">Title</label>
+                <input id="title" type="text"
+                       th:field="*{title}"
+                       class="form-control"
+                       th:placeholder="#{book.title.placeholder}"/>
+
+                <div class="text-danger small"
+                     th:if="${#fields.hasErrors('title')}"
+                     th:errors="*{title}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="author" class="col-form-label" th:text="#{book.author}"/>
+                <select id="author" class="form-control" th:field="*{author}">
+                    <option th:if="${author == null}" selected th:value="${null}" th:text="#{choose}"></option>
+                    <option th:each="author : ${authors}"
+                            th:value="${author.id}"
+                            th:text="${author.fullName}"
+                    />
+                </select>
+                <div class="text-danger small"
+                     th:if="${#fields.hasErrors('author')}"
+                     th:errors="*{author}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="genres" class="col-form-label" th:text="#{book.genres}"/>
+                <select id="genres" class="form-control" th:field="*{genres}" size="10" multiple>
+                    <option th:if="${genres == null}" selected th:value="${null}" th:text="#{choose}"></option>
+                    <option th:each="genre : ${genres}"
+                            th:value="${genre.id}"
+                            th:text="${genre.name}"
+                    />
+                </select>
+                <div class="text-danger small"
+                     th:if="${#fields.hasErrors('genres')}"
+                     th:errors="*{genres}">
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-2 mt-3">
+
+                <!-- list -->
+                <a href="/books" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-list"></i>
+                </a>
+
+                <!-- save -->
+                <button type="submit" class="btn btn-outline-success btn-sm">
+                    <i class="bi bi-check-lg"></i>
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
