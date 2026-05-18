@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:maindb
+  sql:
+    init:
+      mode: always
+      data-locations: data.sql
+      schema-locations: schema.sql
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  h2:
+    console:
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  data:
+    mongodb:
+      port: 0
+      database: main
+  batch:
+    job:
+      enabled: false
+  shell:
+    command:
+      version:
+        enabled: false
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 7.0.5
