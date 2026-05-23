@@ -30,3 +30,4 @@
 
 [14: Приложении для миграции данных из реляционного хранилища в NoSQL](./hw14-batch/README.md)
 
+[15: Приложении для обработки доменной сущности через каналы Spring Integration](hw15-spring-integration/README.md)
