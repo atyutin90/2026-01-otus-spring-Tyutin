@@ -1,0 +1,7 @@
+logging:
+  level:
+    root: info
+
+app:
+  input:
+    file: caterpillars.csv
