@@ -33,3 +33,5 @@
 [15: Приложение для обработки доменной сущности через каналы Spring Integration](hw15-spring-integration/README.md)
 
 [16: Приложение с применением Spring Boot Actuator](hw16-spring-actuator/README.md)
+
+[17: Обернуть приложение для хранения книг в библиотеке в docker-контейнер](hw17-docker/README.md)
