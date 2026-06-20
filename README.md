@@ -35,3 +35,5 @@
 [16: Приложение с применением Spring Boot Actuator](hw16-spring-actuator/README.md)
 
 [17: Обернуть приложение для хранения книг в библиотеке в docker-контейнер](hw17-docker/README.md)
+
+[18: Обернуть внешние вызовы в Hystrix в приложение для хранения книг](hw18-resilence4j/README.md)
