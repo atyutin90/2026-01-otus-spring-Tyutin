@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{book}">Book</title>
+    <div th:replace="~{fragments/library}"></div>
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container flex-grow-1 d-flex align-items-center justify-content-center">
+
+    <div class="card shadow-sm p-4" style="width: 600px;">
+
+        <h4 class="text-center mb-4" th:text="#{book}">Book</h4>
+
+        <form th:object="${book}">
+
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="mb-3">
+                <label for="title" class="form-label" th:text="#{book.title}">Title</label>
+                <input id="title" type="text"
+                       th:field="*{title}"
+                       class="form-control"
+                       th:placeholder="#{book.title.placeholder}"
+                       disabled/>
+            </div>
+
+            <div class="mb-3">
+                <label for="author" class="col-form-label" th:text="#{book.author}"/>
+                <select id="author" class="form-control" th:field="*{author}" disabled>
+                    <option th:if="${author == null}" selected th:value="${null}" th:text="#{choose}"></option>
+                    <option th:each="author : ${authors}"
+                            th:value="${author.id}"
+                            th:text="${author.fullName}"
+                    />
+                </select>
+                <div class="text-danger small"
+                     th:if="${#fields.hasErrors('author')}"
+                     th:errors="*{author}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="genres" class="col-form-label" th:text="#{book.genres}"/>
+                <select id="genres" class="form-control" th:field="*{genres}" size="10" multiple disabled>
+                    <option th:if="${genres == null}" selected th:value="${null}" th:text="#{choose}"></option>
+                    <option th:each="genre : ${genres}"
+                            th:value="${genre.id}"
+                            th:text="${genre.name}"
+                    />
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-center gap-2 mt-3">
+
+                <!-- list -->
+                <a href="/books" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-list"></i>
+                </a>
+
+                <!-- edit -->
+                <a th:href="@{/books/__${book.id}__/edit}"
+                   class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-pencil"></i>
+                </a>
+
+                <!-- add comment -->
+                <a th:href="@{/books/__${book.id}__/comments}"
+                   class="btn btn-outline-success btn-sm">
+                    <i class="bi bi-chat-dots"></i>
+                </a>
+
+            </div>
+
+        </form>
+
+        <!-- Comments -->
+        <div>
+
+            <h6 class="mb-3" th:text="#{comments}">
+                <i class="bi bi-chat-left-text"></i>
+                Comments
+            </h6>
+
+            <!-- EMPTY -->
+            <div th:if="${#lists.isEmpty(comments)}"
+                 class="text-muted text-center" th:text="#{book.no-comments}">
+                No comments yet
+            </div>
+
+            <!-- LIST -->
+            <div class="d-grid gap-2">
+
+                <a th:each="comment : ${comments}"
+                   th:href="@{/books/__${book.id}__/comments/__${comment.id}__}"
+                   class="card p-2 text-decoration-none text-dark">
+
+                    <div class="d-flex justify-content-between align-items-start">
+
+                        <div>
+                            <i class="bi bi-chat-left-text text-secondary me-1"></i>
+                            <span th:text="${comment.text}"
+                                  class="text-break"
+                                  style="white-space: pre-wrap;">
+                                    </span>
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
