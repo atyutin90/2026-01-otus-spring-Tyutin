@@ -1,0 +1,51 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:maindb
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+      schema-locations: classpath:schema.sql
+  jpa:
+    open-in-view: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  h2:
+    console:
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  #Обработка ошибки NoHandlerFoundException в @ControllerAdvice при переходе на неизвестный url
+  web:
+    resources.add-mappings: false
+  #Туннелирование запроса DELETE через POST
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "metrics, health, loggers, logfile, circuitbreakers"
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 3 #размер скользящего окна, которое используется для записи результатов вызовов, когда CB закрыт
+        permittedNumberOfCallsInHalfOpenState: 1 #количество разрешенных вызовов, которые необходимо выполнить в HALF_OPEN состоянии CB
+        maxWaitDurationInHalfOpenState: 3s #время в течение которого CB остается в HALF_OPEN состоянии, перед тем как переключится в OPEN, по ум. значение 0, значит время не ограничено
+        slowCallDurationThreshold: 1000ms #время, по которому определяется что запрос является медленным
+        minimumNumberOfCalls: 2 #минимальное количество вызовов, которое необходимо выполнить (за период скользящего окна), прежде чем CB сможет рассчитать частоту ошибок или скорость медленных вызовов
+        waitDurationInOpenState: 2s #время, в течение которого CB должен ждать перед переходом из OPEN в HALF_OPEN состояние
+        ignoreExceptions:
+          - ru.otus.hw.exceptions.AuthorNotFoundException
+          - ru.otus.hw.exceptions.BookNotFoundException
+          - ru.otus.hw.exceptions.CommentNotFoundException
+          - ru.otus.hw.exceptions.GenreNotFoundException
+          - ru.otus.hw.exceptions.GenresException
